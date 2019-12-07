@@ -11,11 +11,16 @@ const int servoPin = 12;
 
 //vars
 const int motorSpeed = 240;
+//max angle
 const float maxA = 135.000;
+//min angle
 const float minA = 45.000;
+//speed of increments servo
 const float incr = 0.002;
 const float initAngle = 90.000;
 float pos = initAngle;
+
+//dictates whether servo is swinging to the right(r) or not
 int r = true;
 
 //protos
@@ -41,15 +46,18 @@ void loop() {
     motorOff();
   }
 
+  //swinging to right(r) and not exceeding max angle
   if(r && pos < maxA){
     pos = pos + incr;
     myServo.write(pos);
   }
+ //not swinging to right (r), swinging to left
   if(!r && pos > minA){
     pos = pos - incr;
     myServo.write(pos);
   }
   
+ //if max angle is reached, switch r, swing to other direction
   if(pos >= maxA){
     r = false;
   }
